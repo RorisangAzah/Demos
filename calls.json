@@ -1,0 +1,58 @@
+[
+  {
+    "id": "C-201",
+    "contact": "Greg Hollis",
+    "role": "customer",
+    "started": "2026-11-30T09:15",
+    "duration_min": 6,
+    "subject": "Thursday gutter cleaning confirmation",
+    "transcript": [
+      { "speaker": "caller", "text": "Hi, it's Greg Hollis. I booked gutter cleaning for Thursday and want to confirm the time." },
+      { "speaker": "rep", "text": "You're down for Thursday at 8:30 AM. Gutter cleaning is $149, same as we quoted." },
+      { "speaker": "caller", "text": "Great. Can the crew use the side gate? We have a dog." },
+      { "speaker": "rep", "text": "I'll add the side gate note to the job." }
+    ]
+  },
+  {
+    "id": "C-202",
+    "contact": "Rosa Delgado",
+    "role": "customer",
+    "started": "2026-11-30T11:40",
+    "duration_min": 12,
+    "subject": "roof replacement estimate",
+    "transcript": [
+      { "speaker": "caller", "text": "Hi, Rosa Delgado. Your estimator was here this morning about replacing our roof. I'm worried about how long it will take and what it will cost." },
+      { "speaker": "rep", "text": "Most roofs this size take two to three days once materials arrive. The written estimate will show a range of $22,000 to $26,000 depending on the shingle you pick." },
+      { "speaker": "caller", "text": "Okay. Rain is in the forecast Thursday, will that delay things?" },
+      { "speaker": "rep", "text": "I'll email the written estimate by Wednesday and I'll check the weather window with the crew." }
+    ]
+  },
+  {
+    "id": "C-203",
+    "contact": "Sam Whitaker",
+    "role": "customer",
+    "started": "2026-11-30T14:05",
+    "duration_min": 4,
+    "subject": "gutter guard pricing and scheduling",
+    "transcript": [
+      { "speaker": "caller", "text": "Hi, this is Sam Whitaker. I'd like a price for gutter guards on my house, about 2,200 square feet." },
+      { "speaker": "rep", "text": "Gutter guard install for a home that size is $1,650." },
+      { "speaker": "caller", "text": "That works. Can I get on the schedule for next week?" },
+      { "speaker": "rep", "text": "I'll have the office call back with open dates." }
+    ]
+  },
+  {
+    "id": "C-204",
+    "contact": "Mike (Lone Star Shingle Supply)",
+    "role": "vendor",
+    "started": "2026-11-30T16:30",
+    "duration_min": 3,
+    "subject": "delivery change from Wednesday to Thursday",
+    "transcript": [
+      { "speaker": "caller", "text": "This is Mike at Lone Star Shingle Supply. Your Wednesday delivery is moving to Thursday morning." },
+      { "speaker": "rep", "text": "Thursday works as long as it's before noon." },
+      { "speaker": "caller", "text": "We'll aim for 9 AM and text the driver's ETA." },
+      { "speaker": "rep", "text": "I'll tell the crew lead to hold Thursday morning." }
+    ]
+  }
+]

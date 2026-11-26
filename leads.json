@@ -1,0 +1,83 @@
+[
+  {
+    "id": "L-101",
+    "name": "Marcus Bell",
+    "company": null,
+    "email": "marcus.bell@example.com",
+    "source": "Website form",
+    "received": "2026-11-30T21:42",
+    "message": "Hail hit our street last night. Two shingles on the back are cracked and I can see a water stain in the garage ceiling. Can someone come look today?"
+  },
+  {
+    "id": "L-102",
+    "name": "Priya Nair",
+    "company": null,
+    "email": "priya.nair@example.com",
+    "source": "Voicemail",
+    "received": "2026-11-30T18:05",
+    "message": "Looking for a quote on gutter guards for a 2,400 sq ft house. No rush, hoping to get it done before spring."
+  },
+  {
+    "id": "L-103",
+    "name": null,
+    "company": "Oak Ridge Dental",
+    "email": "office@oakridgedental.example.com",
+    "source": "Website form",
+    "received": "2026-12-01T06:50",
+    "message": "Need an annual roof inspection for our office building, 6,000 sq ft flat roof. Please send pricing."
+  },
+  {
+    "id": "L-104",
+    "name": "Tomás Rivera",
+    "company": null,
+    "email": "tomas.rivera@example.com",
+    "source": "Facebook message",
+    "received": "2026-12-01T07:12",
+    "message": "How much to clean gutters? Maybe this weekend if you have time."
+  },
+  {
+    "id": "L-105",
+    "name": "Janelle Whitfield",
+    "company": null,
+    "email": "janelle.whitfield@example.com",
+    "source": "Referral",
+    "received": "2026-11-30T19:30",
+    "message": "My neighbor Pat said you replaced her roof. We have a 20-year-old roof and are getting a few quotes this month."
+  },
+  {
+    "id": "L-106",
+    "name": "Ben Okafor",
+    "company": null,
+    "email": "ben.okafor@example.com",
+    "source": "Website form",
+    "received": "2026-12-01T07:31",
+    "message": "Roof is leaking in the kitchen when it rains and the ceiling is dripping now. Please call me as soon as you can."
+  },
+  {
+    "id": "L-107",
+    "name": "SEO Boost Pro",
+    "company": null,
+    "email": "hello@seoboost.example.net",
+    "source": "Website form",
+    "received": "2026-12-01T03:14",
+    "message": "Rank #1 on Google, guaranteed traffic! Click here to boost your website today."
+  },
+  {
+    "id": "L-108",
+    "name": "Carla Mendes",
+    "company": null,
+    "email": "carla.mendes@example.com",
+    "source": "Website form",
+    "received": "2026-11-30T22:10",
+    "message": "Just browsing prices for the future, maybe next year."
+  },
+  {
+    "id": "L-109",
+    "name": "Hugh Larkin",
+    "company": null,
+    "email": "hugh.larkin@example.com",
+    "source": "Google call",
+    "received": "2026-12-01T06:02",
+    "message": "Do you do plumbing? Kitchen sink is backed up."
+  }
+]

@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hartwell Morning Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: an owner update on top, then a review queue (list left, detail right) that is the heart of the page. */
+:root {
+  --bg: #F2F4F6;
+  --surface: #FFFFFF;
+  --surface-2: #E9EDF1;
+  --ink: #16202B;
+  --ink-2: #4B5967;
+  --line: #D6DDE4;
+  --accent: #2B5C8F;
+  --accent-ink: #FFFFFF;
+  --good: #1B6E47;
+  --good-bg: #DFF1E7;
+  --warn: #8A5200;
+  --warn-bg: #FBEBCB;
+  --bad: #A8231B;
+  --bad-bg: #FADFDB;
+  --info: #2B5C8F;
+  --info-bg: #E0EBF6;
+  --mark-bad: #F6C9C3;
+  --mark-good: #BFE5CF;
+  --font-text: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E151C; --surface: #151E27; --surface-2: #1D2833; --ink: #E6ECF2; --ink-2: #9DAAB8; --line: #2B3845;
+    --accent: #6CA6DE; --accent-ink: #0E151C;
+    --good: #5CC796; --good-bg: #12301F; --warn: #E8B04A; --warn-bg: #35280E; --bad: #F2877F; --bad-bg: #3A1815;
+    --info: #6CA6DE; --info-bg: #172B3F; --mark-bad: #5A2420; --mark-good: #1C4A33;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E151C; --surface: #151E27; --surface-2: #1D2833; --ink: #E6ECF2; --ink-2: #9DAAB8; --line: #2B3845;
+  --accent: #6CA6DE; --accent-ink: #0E151C;
+  --good: #5CC796; --good-bg: #12301F; --warn: #E8B04A; --warn-bg: #35280E; --bad: #F2877F; --bad-bg: #3A1815;
+  --info: #6CA6DE; --info-bg: #172B3F; --mark-bad: #5A2420; --mark-good: #1C4A33;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-text);
+  font-size: 15px;
+  line-height: 1.55;
+  padding-block: 28px 56px;
+}
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3, p, ul, ol { margin: 0; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.2; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* masthead */
+.masthead { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 24px; }
+.masthead h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; }
+.stamp { font-family: var(--font-mono); font-size: 13px; color: var(--ink-2); }
+.subline { margin-top: 6px; color: var(--ink-2); max-width: 70ch; }
+.subline strong { color: var(--ink); font-weight: 600; }
+
+/* owner update */
+.update { margin-top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.update-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.update-head h2 { font-size: 17px; font-weight: 650; }
+.progress { font-size: 13px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.progress b { color: var(--ink); font-weight: 600; }
+.update-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.update-col { padding: 16px 20px; min-width: 0; }
+.update-col + .update-col { border-left: 1px solid var(--line); }
+.update-col h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+.update-col ul { list-style: none; padding: 0; display: grid; gap: 10px; }
+.update-col li { font-size: 14px; }
+.update-col.needs h3 { color: var(--info); }
+.update-foot { padding: 12px 20px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-2); }
+@media (max-width: 640px) {
+  .update-col + .update-col { border-left: 0; border-top: 1px solid var(--line); }
+}
+
+/* tabs */
+.tabs { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); }
+.tab { background: none; border: 0; border-bottom: 2px solid transparent; padding: 10px 14px; margin-bottom: -1px; cursor: pointer; color: var(--ink-2); font-weight: 500; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+.tab .count { font-family: var(--font-mono); font-size: 12px; margin-left: 6px; color: var(--ink-2); }
+.panel { padding-top: 20px; }
+
+/* chips */
+.chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 2px 9px; border-radius: 999px; white-space: nowrap; }
+.chip.good { background: var(--good-bg); color: var(--good); }
+.chip.warn { background: var(--warn-bg); color: var(--warn); }
+.chip.bad { background: var(--bad-bg); color: var(--bad); }
+.chip.info { background: var(--info-bg); color: var(--info); }
+.chip.muted { background: var(--surface-2); color: var(--ink-2); }
+
+/* review queue */
+.queue { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .queue { grid-template-columns: minmax(0, 1fr); } }
+.list-group + .list-group { margin-top: 18px; }
+.list-group h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 8px; }
+.items { display: grid; gap: 6px; }
+.item { width: 100%; text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; cursor: pointer; display: grid; gap: 6px; }
+.item:hover { border-color: var(--ink-2); }
+.item[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.item .t { font-weight: 550; font-size: 14px; overflow-wrap: anywhere; }
+.item .m { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.item .id { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+
+.detail { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); min-width: 0; }
+.detail-head { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: flex-start; }
+.detail-head h2 { font-size: 18px; font-weight: 650; overflow-wrap: anywhere; }
+.detail-head .sub { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); margin-top: 4px; overflow-wrap: anywhere; }
+.block { padding: 16px 20px; border-bottom: 1px solid var(--line); }
+.block:last-child { border-bottom: 0; }
+.block h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+.subject { font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+.text { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; line-height: 1.6; }
+mark { color: inherit; border-radius: 3px; padding: 0 2px; }
+mark.bad { background: var(--mark-bad); }
+mark.good { background: var(--mark-good); }
+
+.finding { border: 1px solid var(--line); border-left: 4px solid var(--bad); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; }
+.finding + .finding { margin-top: 8px; }
+.finding.warn { border-left-color: var(--warn); }
+.finding.resolved { border-left-color: var(--good); opacity: 0.8; }
+.finding .rule { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+.finding .ft { font-weight: 600; }
+.finding .fd { font-size: 14px; color: var(--ink-2); }
+.options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.checks { list-style: none; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.checks li::before { content: "✓"; color: var(--good); font-weight: 700; margin-right: 8px; }
+.note { font-size: 13px; color: var(--ink-2); margin-top: 8px; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 14px; font-weight: 550; cursor: pointer; font-size: 14px; }
+.btn:hover:not(:disabled) { border-color: var(--ink-2); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover:not(:disabled) { filter: brightness(1.08); border-color: var(--accent); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+/* tables and cards on other tabs */
+.table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 760px; font-size: 14px; }
+th { text-align: left; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-2); padding: 10px 14px; border-bottom: 1px solid var(--line); background: var(--surface-2); }
+td { padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+td.mono, .mono { font-family: var(--font-mono); font-size: 12.5px; }
+td.msg { max-width: 360px; color: var(--ink-2); }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.card h3 { font-size: 16px; font-weight: 650; overflow-wrap: anywhere; }
+.card .row { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.card ul { padding-left: 18px; display: grid; gap: 4px; font-size: 14px; }
+.card .summary { font-size: 14px; color: var(--ink-2); overflow-wrap: anywhere; }
+details summary { cursor: pointer; font-size: 13px; color: var(--accent); font-weight: 550; }
+.transcript { margin-top: 8px; display: grid; gap: 6px; font-size: 13.5px; }
+.transcript p { overflow-wrap: anywhere; }
+.transcript b { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--ink-2); margin-right: 6px; }
+
+.lesson { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 10px 16px; justify-content: space-between; align-items: center; }
+.lesson + .lesson { margin-top: 10px; }
+.lesson .body { flex: 1 1 380px; min-width: 0; display: grid; gap: 4px; }
+.lesson .caught { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+
+/* how it works */
+.prose { max-width: 70ch; display: grid; gap: 14px; }
+.prose h2 { font-size: 20px; font-weight: 650; margin-top: 14px; }
+.prose h2:first-child { margin-top: 0; }
+.prose ul { padding-left: 20px; display: grid; gap: 6px; }
+.flow { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; counter-reset: step; max-width: none; }
+.flow li { counter-increment: step; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 14px; display: grid; gap: 4px; }
+.flow li::before { content: "Step " counter(step); font-family: var(--font-mono); font-size: 12px; color: var(--accent); }
+.flow strong { font-weight: 650; }
+pre { margin: 0; overflow-x: auto; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-family: var(--font-mono); font-size: 13px; line-height: 1.6; }
+.tree { font-family: var(--font-mono); font-size: 13px; }
+code { font-family: var(--font-mono); font-size: 0.92em; background: var(--surface-2); padding: 1px 5px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .btn, .item, .tab { transition: border-color 0.12s ease, background-color 0.12s ease; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="masthead">
+    <h1>Morning Brief</h1>
+    <p class="stamp" id="stamp"></p>
+  </header>
+  <p class="subline" id="subline"></p>
+
+  <section class="update" aria-labelledby="update-title">
+    <div class="update-head">
+      <h2 id="update-title"></h2>
+      <p class="progress" id="progress" aria-live="polite"></p>
+    </div>
+    <div class="update-cols" id="update-cols"></div>
+    <p class="update-foot" id="update-foot"></p>
+  </section>
+
+  <div class="tabs" role="tablist" id="tabs">
+    <button class="tab" role="tab" id="tab-queue" data-tab="queue" aria-selected="true">Review queue<span class="count" id="c-queue"></span></button>
+    <button class="tab" role="tab" id="tab-leads" data-tab="leads" aria-selected="false">Leads<span class="count" id="c-leads"></span></button>
+    <button class="tab" role="tab" id="tab-calls" data-tab="calls" aria-selected="false">Calls<span class="count" id="c-calls"></span></button>
+    <button class="tab" role="tab" id="tab-lessons" data-tab="lessons" aria-selected="false">Lessons<span class="count" id="c-lessons"></span></button>
+    <button class="tab" role="tab" id="tab-how" data-tab="how" aria-selected="false">How it works</button>
+  </div>
+
+  <section class="panel" id="panel-queue" role="tabpanel" aria-labelledby="tab-queue">
+    <div class="queue">
+      <div id="queue-list"></div>
+      <article class="detail" id="detail" aria-live="polite"></article>
+    </div>
+  </section>
+
+  <section class="panel" id="panel-leads" role="tabpanel" aria-labelledby="tab-leads" hidden>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Lead</th><th>Source</th><th>Received</th><th>Sorted as</th><th>Message</th></tr></thead>
+      <tbody id="leads-body"></tbody>
+    </table></div>
+  </section>
+
+  <section class="panel" id="panel-calls" role="tabpanel" aria-labelledby="tab-calls" hidden>
+    <div class="cards" id="calls-cards"></div>
+  </section>
+
+  <section class="panel" id="panel-lessons" role="tabpanel" aria-labelledby="tab-lessons" hidden>
+    <p class="note" style="margin:0 0 14px;max-width:70ch">Every problem the reviewer caught becomes a proposed rule for the agents. Nothing changes until the owner approves it.</p>
+    <div id="lessons-list"></div>
+  </section>
+
+  <section class="panel" id="panel-how" role="tabpanel" aria-labelledby="tab-how" hidden>
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>An owner starts the day with leads to sort, calls to remember and follow-ups to write. Agents can do the first pass in minutes. Someone still has to check every output before it reaches a customer, because an email with the wrong price costs more than the time it saved.</p>
+
+      <h2>How a morning runs</h2>
+      <ol class="flow">
+        <li><strong>Inputs arrive</strong>Overnight leads and yesterday's calls.</li>
+        <li><strong>Three agents work</strong>Sort leads, summarize calls, draft follow-ups.</li>
+        <li><strong>The reviewer checks</strong>Prices, names, hours, promises, credentials.</li>
+        <li><strong>The owner decides</strong>Approve, apply a fix, or hold. Nothing sends itself.</li>
+      </ol>
+
+      <h2>What is real and what is simulated</h2>
+      <ul>
+        <li>The agents are plain scripts so the demo runs offline on mock data. A real client build would put a model call where the templates are.</li>
+        <li>Four mistakes are planted on purpose, each one a failure real agents make: a stale cached price, an unfilled name field, a Sunday visit, and an unapproved promise.</li>
+        <li>The reviewer is independent code. It checks against the business's own price list and hours, never against the agent's cache. Its fixes are re-checked, and a run without the planted mistakes produces no draft findings.</li>
+        <li>One flag comes from the data and not from a planted agent fault: on Monday's call the rep quoted an old price. The reviewer sends that one to the owner as a decision, because the right answer is a business call.</li>
+      </ul>
+
+      <h2>How this would be measured for a real client</h2>
+      <ul>
+        <li>Drafts approved with no edits, as a share of all drafts.</li>
+        <li>Errors caught before send, and errors that got through.</li>
+        <li>Minutes from a new lead to the first reply.</li>
+        <li>Minutes the owner spends on review each morning.</li>
+      </ul>
+
+      <h2>Credential habits</h2>
+      <ul>
+        <li>No keys, passwords or tokens in the code, the data or this page.</li>
+        <li><code>.env</code> is git-ignored and <code>.env.example</code> lists names with empty values.</li>
+        <li>The reviewer blocks any output that contains something shaped like a key or password.</li>
+        <li>A test scans every file in the repository for secret-shaped strings.</li>
+      </ul>
+
+      <h2>Run it yourself</h2>
+      <pre>python3 run_brief.py
+python3 run_brief.py --no-seeded-faults
+python3 -m unittest discover -v
+python3 build_page.py</pre>
+      <p class="note">Python 3.10 or newer, standard library only. Fictional business, mock data, no client information.</p>
+    </div>
+  </section>
+</div>
+
+<script type="application/json" id="brief-data">{"business": {"name": "Hartwell Roofing & Gutters", "owner": "Dana Hartwell", "owner_first": "Dana", "city": "Dallas, TX"}, "date_label": "Tuesday, Dec 1 · 7:45 AM Central", "seeded_faults": true, "prices": {"roof_inspection": {"short": "roof inspection", "amount": 225}, "commercial_inspection": {"short": "commercial flat-roof inspection", "amount": 480}, "gutter_cleaning": {"short": "gutter cleaning", "amount": 149}, "gutter_guards": {"short": "gutter guard install", "amount": 1850}}, "leads": [{"id": "L-106", "name": "Ben Okafor", "company": null, "source": "Website form", "received": "2026-12-01T07:31", "message": "Roof is leaking in the kitchen when it rains and the ceiling is dripping now. Please call me as soon as you can.", "category": "hot", "reason": "Matched: leak, dripping", "topic": "Active roof leak"}, {"id": "L-101", "name": "Marcus Bell", "company": null, "source": "Website form", "received": "2026-11-30T21:42", "message": "Hail hit our street last night. Two shingles on the back are cracked and I can see a water stain in the garage ceiling. Can someone come look today?", "category": "hot", "reason": "Matched: hail, water stain", "topic": "Storm damage inspection"}, {"id": "L-102", "name": "Priya Nair", "company": null, "source": "Voicemail", "received": "2026-11-30T18:05", "message": "Looking for a quote on gutter guards for a 2,400 sq ft house. No rush, hoping to get it done before spring.", "category": "warm", "reason": "Matched: quote, gutter", "topic": "Gutter guards"}, {"id": "L-105", "name": "Janelle Whitfield", "company": null, "source": "Referral", "received": "2026-11-30T19:30", "message": "My neighbor Pat said you replaced her roof. We have a 20-year-old roof and are getting a few quotes this month.", "category": "warm", "reason": "Matched: quote, replace, roof", "topic": "Roof replacement estimate"}, {"id": "L-103", "name": null, "company": "Oak Ridge Dental", "source": "Website form", "received": "2026-12-01T06:50", "message": "Need an annual roof inspection for our office building, 6,000 sq ft flat roof. Please send pricing.", "category": "warm", "reason": "Matched: pricing, inspection, roof", "topic": "Commercial roof inspection"}, {"id": "L-104", "name": "Tomás Rivera", "company": null, "source": "Facebook message", "received": "2026-12-01T07:12", "message": "How much to clean gutters? Maybe this weekend if you have time.", "category": "warm", "reason": "Matched: how much, gutter", "topic": "Gutter cleaning"}, {"id": "L-108", "name": "Carla Mendes", "company": null, "source": "Website form", "received": "2026-11-30T22:10", "message": "Just browsing prices for the future, maybe next year.", "category": "cold", "reason": "Matched: just browsing, next year", "topic": "General question"}, {"id": "L-109", "name": "Hugh Larkin", "company": null, "source": "Google call", "received": "2026-12-01T06:02", "message": "Do you do plumbing? Kitchen sink is backed up.", "category": "not_a_fit", "reason": "Matched: plumbing", "topic": "General question"}, {"id": "L-107", "name": "SEO Boost Pro", "company": null, "source": "Website form", "received": "2026-12-01T03:14", "message": "Rank #1 on Google, guaranteed traffic! Click here to boost your website today.", "category": "spam", "reason": "Matched: rank #1, click here, seo, guaranteed traffic", "topic": "General question"}], "calls": [{"id": "C-201", "contact": "Greg Hollis", "role": "customer", "started": "2026-11-30T09:15", "duration_min": 6, "subject": "Thursday gutter cleaning confirmation", "transcript": [{"speaker": "caller", "text": "Hi, it's Greg Hollis. I booked gutter cleaning for Thursday and want to confirm the time."}, {"speaker": "rep", "text": "You're down for Thursday at 8:30 AM. Gutter cleaning is $149, same as we quoted."}, {"speaker": "caller", "text": "Great. Can the crew use the side gate? We have a dog."}, {"speaker": "rep", "text": "I'll add the side gate note to the job."}], "summary": "Greg Hollis called about Thursday gutter cleaning confirmation. Rep quoted gutter cleaning at $149.", "action_items": ["Add the side gate note to the job."], "review_id": "CS-C-201"}, {"id": "C-202", "contact": "Rosa Delgado", "role": "customer", "started": "2026-11-30T11:40", "duration_min": 12, "subject": "roof replacement estimate", "transcript": [{"speaker": "caller", "text": "Hi, Rosa Delgado. Your estimator was here this morning about replacing our roof. I'm worried about how long it will take and what it will cost."}, {"speaker": "rep", "text": "Most roofs this size take two to three days once materials arrive. The written estimate will show a range of $22,000 to $26,000 depending on the shingle you pick."}, {"speaker": "caller", "text": "Okay. Rain is in the forecast Thursday, will that delay things?"}, {"speaker": "rep", "text": "I'll email the written estimate by Wednesday and I'll check the weather window with the crew."}], "summary": "Rosa Delgado called about roof replacement estimate. Amounts discussed: $22,000, $26,000. Caller said: \"I'm worried about how long it will take and what it will cost.\" \"Rain is in the forecast Thursday, will that delay things?\"", "action_items": ["Email the written estimate by Wednesday.", "Check the weather window with the crew."], "review_id": "CS-C-202"}, {"id": "C-203", "contact": "Sam Whitaker", "role": "customer", "started": "2026-11-30T14:05", "duration_min": 4, "subject": "gutter guard pricing and scheduling", "transcript": [{"speaker": "caller", "text": "Hi, this is Sam Whitaker. I'd like a price for gutter guards on my house, about 2,200 square feet."}, {"speaker": "rep", "text": "Gutter guard install for a home that size is $1,650."}, {"speaker": "caller", "text": "That works. Can I get on the schedule for next week?"}, {"speaker": "rep", "text": "I'll have the office call back with open dates."}], "summary": "Sam Whitaker called about gutter guard pricing and scheduling. Rep quoted gutter guard install at $1,650.", "action_items": ["Have the office call back with open dates."], "review_id": "CS-C-203"}, {"id": "C-204", "contact": "Mike (Lone Star Shingle Supply)", "role": "vendor", "started": "2026-11-30T16:30", "duration_min": 3, "subject": "delivery change from Wednesday to Thursday", "transcript": [{"speaker": "caller", "text": "This is Mike at Lone Star Shingle Supply. Your Wednesday delivery is moving to Thursday morning."}, {"speaker": "rep", "text": "Thursday works as long as it's before noon."}, {"speaker": "caller", "text": "We'll aim for 9 AM and text the driver's ETA."}, {"speaker": "rep", "text": "I'll tell the crew lead to hold Thursday morning."}], "summary": "Mike (Lone Star Shingle Supply) called about delivery change from Wednesday to Thursday.", "action_items": ["Tell the crew lead to hold Thursday morning."], "review_id": "CS-C-204"}], "review": [{"id": "FU-L-106", "kind": "draft", "title": "Ben Okafor: active roof leak", "subtitle": "To ben.okafor@example.com", "subject": "Your roof leak: we can be there today", "original": "Hi Ben,\n\nAn active leak needs eyes on it quickly. I can have an inspector at your home today at 1:00 PM for our roof inspection ($225). The fee is credited toward any repair we do. If water is coming in now, put a bucket under the drip and move anything valuable out of the way.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [], "status": "clean", "suggested": null, "suggested_is_clean": false, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "FU-L-101", "kind": "draft", "title": "Marcus Bell: storm damage inspection", "subtitle": "To marcus.bell@example.com", "subject": "Your roof: we can look at it today", "original": "Hi Marcus,\n\nThanks for reaching out about the hail damage. We put storm calls first, and we guarantee same-day repair once we've found the cause. I can have an inspector at your home today at 2:00 PM for our roof inspection ($225). The fee is credited toward any repair we do.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [{"rule": "banned_wording", "severity": "block", "title": "Promise the business has not approved", "detail": "The draft promises same-day repair. We can offer the earliest date after an inspection, not a guarantee.", "evidence": "we guarantee same-day repair once we've found the cause", "replacement": "we'll give you the earliest repair date as soon as we've found the cause"}], "status": "fix_ready", "suggested": "Hi Marcus,\n\nThanks for reaching out about the hail damage. We put storm calls first, and we'll give you the earliest repair date as soon as we've found the cause. I can have an inspector at your home today at 2:00 PM for our roof inspection ($225). The fee is credited toward any repair we do.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "suggested_is_clean": true, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "FU-L-102", "kind": "draft", "title": "Priya Nair: gutter guards", "subtitle": "To priya.nair@example.com", "subject": "Your gutter guard quote", "original": "Hi Priya,\n\nThanks for your voicemail about gutter guards. For a home up to 2,500 sq ft, our gutter guard install is $1,650, and we can schedule it Wednesday, Dec 2 at 10:00 AM. Spring fills up fast, so booking now keeps your date.\n\nReply with a time that works, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [{"rule": "price_mismatch", "severity": "block", "title": "Wrong price", "detail": "The draft quotes $1,650 for gutter guard install. The current price list says $1,850.", "evidence": "$1,650", "replacement": "$1,850"}], "status": "fix_ready", "suggested": "Hi Priya,\n\nThanks for your voicemail about gutter guards. For a home up to 2,500 sq ft, our gutter guard install is $1,850, and we can schedule it Wednesday, Dec 2 at 10:00 AM. Spring fills up fast, so booking now keeps your date.\n\nReply with a time that works, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "suggested_is_clean": true, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "FU-L-105", "kind": "draft", "title": "Janelle Whitfield: roof replacement estimate", "subtitle": "To janelle.whitfield@example.com", "subject": "Your free roof estimate", "original": "Hi Janelle,\n\nThanks for getting in touch, and for the referral. Estimates for full roof replacement are free. I can have an estimator at your home Wednesday, Dec 2 at 4:00 PM to measure the roof and walk you through shingle options.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [], "status": "clean", "suggested": null, "suggested_is_clean": false, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "FU-L-103", "kind": "draft", "title": "Oak Ridge Dental: commercial roof inspection", "subtitle": "To office@oakridgedental.example.com", "subject": "Your roof inspection pricing", "original": "Hi {first_name},\n\nThanks for your request about the roof at your office building. Our commercial flat-roof inspection is $480. I can have an inspector there Thursday, Dec 3 at 9:00 AM to look at the roof and write up what we find.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [{"rule": "placeholder", "severity": "block", "title": "Template field left in the message", "detail": "The text {first_name} would reach the customer exactly as written.", "evidence": "Hi {first_name},", "replacement": "Hello Oak Ridge Dental team,"}], "status": "fix_ready", "suggested": "Hello Oak Ridge Dental team,\n\nThanks for your request about the roof at your office building. Our commercial flat-roof inspection is $480. I can have an inspector there Thursday, Dec 3 at 9:00 AM to look at the roof and write up what we find.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "suggested_is_clean": true, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "FU-L-104", "kind": "draft", "title": "Tomás Rivera: gutter cleaning", "subtitle": "To tomas.rivera@example.com", "subject": "Your gutter cleaning", "original": "Hi Tomás,\n\nThanks for asking about gutter cleaning. It's $149, and we can do it Sunday, Dec 6 at 10:00 AM.\n\nReply YES to book it, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "findings": [{"rule": "closed_day", "severity": "block", "title": "Visit offered when the business is closed", "detail": "Hartwell is closed on Sundays.", "evidence": "Sunday, Dec 6 at 10:00 AM", "replacement": "Saturday, Dec 5 at 10:00 AM", "new_slot": "2026-12-05T10:00"}], "status": "fix_ready", "suggested": "Hi Tomás,\n\nThanks for asking about gutter cleaning. It's $149, and we can do it Saturday, Dec 5 at 10:00 AM.\n\nReply YES to book it, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team", "suggested_is_clean": true, "checks": ["Prices match the price list", "No template fields left in the text", "Visit falls inside business hours", "No promises the business has not approved", "Greeting and address match the lead", "No credentials in the text"]}, {"id": "CS-C-201", "kind": "call_summary", "title": "Greg Hollis: Thursday gutter cleaning confirmation", "subtitle": "Call C-201, 6 min", "subject": null, "original": "Greg Hollis called about Thursday gutter cleaning confirmation. Rep quoted gutter cleaning at $149.", "findings": [], "status": "clean", "suggested": null, "suggested_is_clean": false, "checks": ["Every amount was said on the call", "Quoted prices match the price list", "No credentials in the text"]}, {"id": "CS-C-202", "kind": "call_summary", "title": "Rosa Delgado: roof replacement estimate", "subtitle": "Call C-202, 12 min", "subject": null, "original": "Rosa Delgado called about roof replacement estimate. Amounts discussed: $22,000, $26,000. Caller said: \"I'm worried about how long it will take and what it will cost.\" \"Rain is in the forecast Thursday, will that delay things?\"", "findings": [], "status": "clean", "suggested": null, "suggested_is_clean": false, "checks": ["Every amount was said on the call", "Quoted prices match the price list", "No credentials in the text"]}, {"id": "CS-C-203", "kind": "call_summary", "title": "Sam Whitaker: gutter guard pricing and scheduling", "subtitle": "Call C-203, 4 min", "subject": null, "original": "Sam Whitaker called about gutter guard pricing and scheduling. Rep quoted gutter guard install at $1,650.", "findings": [{"rule": "outdated_quote", "severity": "warn", "title": "Customer was quoted an old price", "detail": "The rep quoted gutter guard install at $1,650 on the call. The price list now says $1,850. The summary is accurate, but the customer expects the lower number.", "evidence": "$1,650", "replacement": null, "contact": "Sam Whitaker", "quoted": 1650, "current": 1850, "service_short": "gutter guard install", "options": ["Honor $1,650 for this customer", "Call to explain the new $1,850 price"]}], "status": "needs_decision", "suggested": null, "suggested_is_clean": false, "checks": ["Every amount was said on the call", "Quoted prices match the price list", "No credentials in the text"]}, {"id": "CS-C-204", "kind": "call_summary", "title": "Mike (Lone Star Shingle Supply): delivery change from Wednesday to Thursday", "subtitle": "Call C-204, 3 min", "subject": null, "original": "Mike (Lone Star Shingle Supply) called about delivery change from Wednesday to Thursday.", "findings": [], "status": "clean", "suggested": null, "suggested_is_clean": false, "checks": ["Every amount was said on the call", "Quoted prices match the price list", "No credentials in the text"]}], "lessons": [{"rule": "banned_wording", "lesson": "Do not promise outcomes or timelines the business has not approved. Offer the earliest date after an inspection instead.", "items": ["FU-L-101"]}, {"rule": "price_mismatch", "lesson": "Read prices from data/business.json every time you write one. Never reuse a remembered or cached price.", "items": ["FU-L-102"]}, {"rule": "placeholder", "lesson": "If a lead has no personal name, greet the company or use a neutral hello. Never send a draft with a template field left in it.", "items": ["FU-L-103"]}, {"rule": "closed_day", "lesson": "Check every proposed visit against business hours before writing it. If a customer says 'weekend', offer Saturday morning.", "items": ["FU-L-104"]}, {"rule": "outdated_quote", "lesson": "When a call summary shows a price that differs from the price list, flag it for the owner. Do not repeat it in a follow-up.", "items": ["CS-C-203"]}], "owner_update": {"done": ["Sorted 9 overnight inquiries: 2 urgent, 4 quote requests, 2 not ready or not a fit, 1 spam.", "Summarized yesterday's 4 calls.", "Drafted 6 follow-ups and checked every one before anything went out. 2 were clean. 4 had a problem I caught: a promise we do not make, a wrong price, an unfilled name field and a visit offered on a day we are closed. Fixes are ready."], "next": ["Call the urgent leads first: Ben Okafor (active roof leak) and Marcus Bell (storm damage inspection).", "Approve the 2 clean follow-ups and look over the 4 fixes.", "Keep the 5 promises made on yesterday's calls. Each one is listed with its call."], "needs_you": ["Sam Whitaker was quoted $1,650 for gutter guard install on Monday's call. The price list now says $1,850. Do we honor $1,650 for them, or do we call to explain the new price?"], "blocked": "Nothing is blocked. Nothing has been sent.", "text": "Good morning, Dana.\n\nDone\n- Sorted 9 overnight inquiries: 2 urgent, 4 quote requests, 2 not ready or not a fit, 1 spam.\n- Summarized yesterday's 4 calls.\n- Drafted 6 follow-ups and checked every one before anything went out. 2 were clean. 4 had a problem I caught: a promise we do not make, a wrong price, an unfilled name field and a visit offered on a day we are closed. Fixes are ready.\n\nNext\n- Call the urgent leads first: Ben Okafor (active roof leak) and Marcus Bell (storm damage inspection).\n- Approve the 2 clean follow-ups and look over the 4 fixes.\n- From Greg Hollis's call: add the side gate note to the job.\n- From Rosa Delgado's call: email the written estimate by Wednesday.\n- From Rosa Delgado's call: check the weather window with the crew.\n- From Sam Whitaker's call: have the office call back with open dates.\n- From Mike (Lone Star Shingle Supply)'s call: tell the crew lead to hold Thursday morning.\n\nNeeds your call\n- Sam Whitaker was quoted $1,650 for gutter guard install on Monday's call. The price list now says $1,850. Do we honor $1,650 for them, or do we call to explain the new price?\n\nNothing is blocked. Nothing has been sent."}, "stats": {"leads": 9, "calls": 4, "drafts": 6, "outputs_reviewed": 10, "flagged": 5, "clean": 5}}</script>
+<script>
+(function () {
+  var B = JSON.parse(document.getElementById('brief-data').textContent);
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  };
+
+  // ---- state: what the reviewer (the viewer) has done so far. In memory only. ----
+  var state = {};
+  B.review.forEach(function (it) { state[it.id] = { resolved: null, choice: null, final: null }; });
+  var firstPrice = B.review.filter(function (it) {
+    return it.findings.some(function (f) { return f.rule === 'price_mismatch'; });
+  })[0];
+  var selected = (firstPrice || B.review[0]).id;
+  var lessonApproved = {};
+
+  var RULE_LABEL = {
+    price_mismatch: 'Wrong price', placeholder: 'Template field', closed_day: 'Closed hours',
+    banned_wording: 'Unapproved promise', outdated_quote: 'Old quote', wrong_recipient: 'Wrong recipient',
+    hallucinated_amount: 'Invented amount', secret: 'Credential'
+  };
+  var CAT = {
+    hot: ['Urgent', 'bad'], warm: ['Quote request', 'warn'], cold: ['Not ready', 'muted'],
+    not_a_fit: ['Not a fit', 'muted'], spam: ['Spam', 'muted']
+  };
+
+  function byId(id) { return B.review.filter(function (r) { return r.id === id; })[0]; }
+  function canApprove(it) { return it.status === 'clean' || state[it.id].resolved !== null; }
+
+  function chipFor(it) {
+    var s = state[it.id];
+    if (s.final === 'approved') return ['Approved', 'good'];
+    if (s.final === 'held') return ['On hold', 'muted'];
+    if (s.resolved === 'fixed') return ['Fixed', 'good'];
+    if (s.resolved === 'decided') return ['Decided', 'good'];
+    if (it.status === 'clean') return ['Clean', 'good'];
+    if (it.status === 'fix_ready') return ['Fix ready', 'warn'];
+    return ['Needs your call', 'info'];
+  }
+  function chipHtml(pair) { return '<span class="chip ' + pair[1] + '">' + esc(pair[0]) + '</span>'; }
+
+  // Highlight each needle once, on the raw text, then escape every piece.
+  function markAll(text, needles, cls) {
+    var ranges = needles.map(function (n) {
+      var i = n ? text.indexOf(n) : -1;
+      return i < 0 ? null : [i, i + n.length];
+    }).filter(Boolean).sort(function (a, b) { return a[0] - b[0]; });
+    var out = '', pos = 0;
+    ranges.forEach(function (r) {
+      if (r[0] < pos) return;
+      out += esc(text.slice(pos, r[0])) + '<mark class="' + cls + '">' + esc(text.slice(r[0], r[1])) + '</mark>';
+      pos = r[1];
+    });
+    return out + esc(text.slice(pos));
+  }
+
+  // ---- header and owner update ----
+  function renderHeader() {
+    $('#stamp').textContent = B.date_label;
+    $('#subline').innerHTML = '<strong>' + esc(B.business.name) + '</strong>, ' + esc(B.business.city) +
+      '. A fictional business with mock data. Three agents did the first pass overnight and a reviewer checked every output. Nothing has been sent.';
+    $('#update-title').textContent = 'Update for ' + B.business.owner_first;
+    var u = B.owner_update;
+    function col(title, items, cls) {
+      return '<div class="update-col ' + (cls || '') + '"><h3>' + title + '</h3><ul>' +
+        items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>';
+    }
+    $('#update-cols').innerHTML = col('Done', u.done) + col('Next', u.next) + col('Needs your call', u.needs_you, 'needs');
+    $('#update-foot').textContent = u.blocked;
+    $('#c-queue').textContent = B.review.length;
+    $('#c-leads').textContent = B.leads.length;
+    $('#c-calls').textContent = B.calls.length;
+    $('#c-lessons').textContent = B.lessons.length;
+  }
+
+  function renderProgress() {
+    var done = B.review.filter(function (r) { return state[r.id].final === 'approved'; }).length;
+    var flagged = B.review.filter(function (r) { return r.status !== 'clean'; }).length;
+    var open = B.review.filter(function (r) { return r.status !== 'clean' && state[r.id].resolved === null; }).length;
+    $('#progress').innerHTML = '<b>' + done + ' of ' + B.review.length + '</b> approved · <b>' + open + ' of ' + flagged + '</b> flagged items still need you';
+  }
+
+  // ---- review queue ----
+  function renderList() {
+    function group(title, kind) {
+      var rows = B.review.filter(function (r) { return r.kind === kind; });
+      return '<div class="list-group"><h3>' + title + ' (' + rows.length + ')</h3><div class="items">' +
+        rows.map(function (r) {
+          return '<button class="item" data-id="' + esc(r.id) + '" aria-current="' + (r.id === selected) + '">' +
+            '<span class="t">' + esc(r.title) + '</span>' +
+            '<span class="m"><span class="id">' + esc(r.id) + '</span>' + chipHtml(chipFor(r)) + '</span></button>';
+        }).join('') + '</div></div>';
+    }
+    $('#queue-list').innerHTML = group('Follow-up drafts', 'draft') + group('Call summaries', 'call_summary');
+  }
+
+  function renderDetail() {
+    var it = byId(selected), s = state[it.id], chip = chipFor(it);
+    var evidence = it.findings.map(function (f) { return f.evidence; });
+    var replacements = it.findings.map(function (f) { return f.replacement; });
+    var html = '<div class="detail-head"><div><h2>' + esc(it.title) + '</h2><p class="sub">' + esc(it.id) + ' · ' + esc(it.subtitle) + '</p></div>' + chipHtml(chip) + '</div>';
+
+    // what the agent wrote
+    html += '<div class="block"><h3>What the agent wrote</h3>';
+    if (it.subject) html += '<p class="subject">Subject: ' + esc(it.subject) + '</p>';
+    html += '<div class="text">' + markAll(it.original, evidence, 'bad') + '</div></div>';
+
+    // what the reviewer found
+    html += '<div class="block"><h3>What the reviewer found</h3>';
+    if (!it.findings.length) {
+      html += '<ul class="checks">' + it.checks.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul>';
+    } else {
+      it.findings.forEach(function (f) {
+        var resolved = s.resolved !== null;
+        html += '<div class="finding ' + (f.severity === 'warn' ? 'warn' : '') + (resolved ? ' resolved' : '') + '">' +
+          '<span class="rule">' + esc(RULE_LABEL[f.rule] || f.rule) + (resolved ? ' · resolved' : '') + '</span>' +
+          '<span class="ft">' + esc(f.title) + '</span><span class="fd">' + esc(f.detail) + '</span>';
+        if (f.options && s.resolved === null) {
+          html += '<div class="options">' + f.options.map(function (o, i) {
+            return '<button class="btn" data-action="decide" data-i="' + i + '">' + esc(o) + '</button>';
+          }).join('') + '</div>';
+        }
+        if (f.options && s.resolved === 'decided') html += '<span class="fd"><b>Your decision:</b> ' + esc(f.options[s.choice]) + '</span>';
+        html += '</div>';
+      });
+    }
+    html += '</div>';
+
+    // suggested version
+    if (it.suggested) {
+      html += '<div class="block"><h3>' + (s.resolved === 'fixed' ? 'Using this version' : 'Suggested version') + '</h3>' +
+        '<div class="text">' + markAll(it.suggested, replacements, 'good') + '</div>' +
+        '<p class="note">' + (it.suggested_is_clean ? 'The reviewer checked this version again and found nothing.' : 'This version still needs a human edit.') + '</p>';
+      if (s.resolved === null) html += '<div class="actions" style="margin-top:12px"><button class="btn" data-action="fix">Use this version</button></div>';
+      html += '</div>';
+    }
+
+    // actions
+    html += '<div class="block"><div class="actions">';
+    if (s.final) {
+      html += '<button class="btn" data-action="undo">Undo</button><span class="note" style="margin:0">Demo only: nothing is sent.</span>';
+    } else {
+      html += '<button class="btn primary" data-action="approve"' + (canApprove(it) ? '' : ' disabled') + '>Approve</button>' +
+        '<button class="btn" data-action="hold">Hold</button>';
+      if (!canApprove(it)) html += '<span class="note" style="margin:0">Resolve the flag first.</span>';
+    }
+    html += '</div></div>';
+    $('#detail').innerHTML = html;
+  }
+
+  function refresh() { renderList(); renderDetail(); renderProgress(); }
+
+  $('#queue-list').addEventListener('click', function (e) {
+    var b = e.target.closest('.item'); if (!b) return;
+    selected = b.getAttribute('data-id'); refresh();
+    if (window.matchMedia('(max-width: 860px)').matches) $('#detail').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('#detail').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-action]'); if (!b) return;
+    var s = state[selected], a = b.getAttribute('data-action');
+    if (a === 'fix') s.resolved = 'fixed';
+    if (a === 'decide') { s.resolved = 'decided'; s.choice = Number(b.getAttribute('data-i')); }
+    if (a === 'approve' && canApprove(byId(selected))) s.final = 'approved';
+    if (a === 'hold') s.final = 'held';
+    if (a === 'undo') s.final = null;
+    refresh();
+  });
+
+  // ---- other tabs ----
+  function renderLeads() {
+    $('#leads-body').innerHTML = B.leads.map(function (l) {
+      var c = CAT[l.category];
+      return '<tr><td><b>' + esc(l.name || l.company) + '</b><br><span class="mono">' + esc(l.id) + '</span></td>' +
+        '<td>' + esc(l.source) + '</td><td class="mono">' + esc(l.received.replace('T', ' ')) + '</td>' +
+        '<td>' + chipHtml(c) + '<br><span class="mono">' + esc(l.topic) + '</span><br><span class="note" style="font-size:12px">' + esc(l.reason) + '</span></td>' +
+        '<td class="msg">' + esc(l.message) + '</td></tr>';
+    }).join('');
+  }
+  function renderCalls() {
+    $('#calls-cards').innerHTML = B.calls.map(function (c) {
+      var r = byId(c.review_id);
+      return '<div class="card"><div class="row"><h3>' + esc(c.contact) + '</h3>' + chipHtml(chipFor(r)) + '</div>' +
+        '<p class="mono" style="color:var(--ink-2)">' + esc(c.id) + ' · ' + esc(c.started.replace('T', ' ')) + ' · ' + c.duration_min + ' min</p>' +
+        '<p class="summary">' + esc(c.summary) + '</p>' +
+        (c.action_items.length ? '<ul>' + c.action_items.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
+        '<details><summary>Transcript</summary><div class="transcript">' +
+        c.transcript.map(function (t) { return '<p><b>' + esc(t.speaker) + '</b>' + esc(t.text) + '</p>'; }).join('') + '</div></details></div>';
+    }).join('');
+  }
+  function renderLessons() {
+    $('#lessons-list').innerHTML = B.lessons.map(function (l, i) {
+      var on = !!lessonApproved[i];
+      return '<div class="lesson"><div class="body"><span class="chip ' + (on ? 'good' : 'muted') + '" style="justify-self:start">' + esc(RULE_LABEL[l.rule] || l.rule) + '</span>' +
+        '<span>' + esc(l.lesson) + '</span><span class="caught">Caught on ' + esc(l.items.join(', ')) + '</span></div>' +
+        '<button class="btn' + (on ? '' : ' primary') + '" data-lesson="' + i + '">' + (on ? 'Approved. Undo' : 'Add to agent instructions') + '</button></div>';
+    }).join('');
+  }
+  $('#lessons-list').addEventListener('click', function (e) {
+    var b = e.target.closest('[data-lesson]'); if (!b) return;
+    var i = b.getAttribute('data-lesson'); lessonApproved[i] = !lessonApproved[i]; renderLessons();
+  });
+
+  // ---- tabs ----
+  $('#tabs').addEventListener('click', function (e) {
+    var b = e.target.closest('.tab'); if (!b) return;
+    document.querySelectorAll('.tab').forEach(function (t) { t.setAttribute('aria-selected', String(t === b)); });
+    document.querySelectorAll('.panel').forEach(function (p) { p.hidden = p.id !== 'panel-' + b.getAttribute('data-tab'); });
+  });
+
+  // calls need transcripts; they live in the raw brief data
+  renderHeader(); renderLeads(); renderCalls(); renderLessons(); refresh();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+{
+  "business": {
+    "name": "Hartwell Roofing & Gutters",
+    "owner": "Dana Hartwell",
+    "owner_first": "Dana",
+    "city": "Dallas, TX"
+  },
+  "date_label": "Tuesday, Dec 1 · 7:45 AM Central",
+  "seeded_faults": true,
+  "prices": {
+    "roof_inspection": {
+      "short": "roof inspection",
+      "amount": 225
+    },
+    "commercial_inspection": {
+      "short": "commercial flat-roof inspection",
+      "amount": 480
+    },
+    "gutter_cleaning": {
+      "short": "gutter cleaning",
+      "amount": 149
+    },
+    "gutter_guards": {
+      "short": "gutter guard install",
+      "amount": 1850
+    }
+  },
+  "leads": [
+    {
+      "id": "L-106",
+      "name": "Ben Okafor",
+      "company": null,
+      "source": "Website form",
+      "received": "2026-12-01T07:31",
+      "message": "Roof is leaking in the kitchen when it rains and the ceiling is dripping now. Please call me as soon as you can.",
+      "category": "hot",
+      "reason": "Matched: leak, dripping",
+      "topic": "Active roof leak"
+    },
+    {
+      "id": "L-101",
+      "name": "Marcus Bell",
+      "company": null,
+      "source": "Website form",
+      "received": "2026-11-30T21:42",
+      "message": "Hail hit our street last night. Two shingles on the back are cracked and I can see a water stain in the garage ceiling. Can someone come look today?",
+      "category": "hot",
+      "reason": "Matched: hail, water stain",
+      "topic": "Storm damage inspection"
+    },
+    {
+      "id": "L-102",
+      "name": "Priya Nair",
+      "company": null,
+      "source": "Voicemail",
+      "received": "2026-11-30T18:05",
+      "message": "Looking for a quote on gutter guards for a 2,400 sq ft house. No rush, hoping to get it done before spring.",
+      "category": "warm",
+      "reason": "Matched: quote, gutter",
+      "topic": "Gutter guards"
+    },
+    {
+      "id": "L-105",
+      "name": "Janelle Whitfield",
+      "company": null,
+      "source": "Referral",
+      "received": "2026-11-30T19:30",
+      "message": "My neighbor Pat said you replaced her roof. We have a 20-year-old roof and are getting a few quotes this month.",
+      "category": "warm",
+      "reason": "Matched: quote, replace, roof",
+      "topic": "Roof replacement estimate"
+    },
+    {
+      "id": "L-103",
+      "name": null,
+      "company": "Oak Ridge Dental",
+      "source": "Website form",
+      "received": "2026-12-01T06:50",
+      "message": "Need an annual roof inspection for our office building, 6,000 sq ft flat roof. Please send pricing.",
+      "category": "warm",
+      "reason": "Matched: pricing, inspection, roof",
+      "topic": "Commercial roof inspection"
+    },
+    {
+      "id": "L-104",
+      "name": "Tomás Rivera",
+      "company": null,
+      "source": "Facebook message",
+      "received": "2026-12-01T07:12",
+      "message": "How much to clean gutters? Maybe this weekend if you have time.",
+      "category": "warm",
+      "reason": "Matched: how much, gutter",
+      "topic": "Gutter cleaning"
+    },
+    {
+      "id": "L-108",
+      "name": "Carla Mendes",
+      "company": null,
+      "source": "Website form",
+      "received": "2026-11-30T22:10",
+      "message": "Just browsing prices for the future, maybe next year.",
+      "category": "cold",
+      "reason": "Matched: just browsing, next year",
+      "topic": "General question"
+    },
+    {
+      "id": "L-109",
+      "name": "Hugh Larkin",
+      "company": null,
+      "source": "Google call",
+      "received": "2026-12-01T06:02",
+      "message": "Do you do plumbing? Kitchen sink is backed up.",
+      "category": "not_a_fit",
+      "reason": "Matched: plumbing",
+      "topic": "General question"
+    },
+    {
+      "id": "L-107",
+      "name": "SEO Boost Pro",
+      "company": null,
+      "source": "Website form",
+      "received": "2026-12-01T03:14",
+      "message": "Rank #1 on Google, guaranteed traffic! Click here to boost your website today.",
+      "category": "spam",
+      "reason": "Matched: rank #1, click here, seo, guaranteed traffic",
+      "topic": "General question"
+    }
+  ],
+  "calls": [
+    {
+      "id": "C-201",
+      "contact": "Greg Hollis",
+      "role": "customer",
+      "started": "2026-11-30T09:15",
+      "duration_min": 6,
+      "subject": "Thursday gutter cleaning confirmation",
+      "transcript": [
+        {
+          "speaker": "caller",
+          "text": "Hi, it's Greg Hollis. I booked gutter cleaning for Thursday and want to confirm the time."
+        },
+        {
+          "speaker": "rep",
+          "text": "You're down for Thursday at 8:30 AM. Gutter cleaning is $149, same as we quoted."
+        },
+        {
+          "speaker": "caller",
+          "text": "Great. Can the crew use the side gate? We have a dog."
+        },
+        {
+          "speaker": "rep",
+          "text": "I'll add the side gate note to the job."
+        }
+      ],
+      "summary": "Greg Hollis called about Thursday gutter cleaning confirmation. Rep quoted gutter cleaning at $149.",
+      "action_items": [
+        "Add the side gate note to the job."
+      ],
+      "review_id": "CS-C-201"
+    },
+    {
+      "id": "C-202",
+      "contact": "Rosa Delgado",
+      "role": "customer",
+      "started": "2026-11-30T11:40",
+      "duration_min": 12,
+      "subject": "roof replacement estimate",
+      "transcript": [
+        {
+          "speaker": "caller",
+          "text": "Hi, Rosa Delgado. Your estimator was here this morning about replacing our roof. I'm worried about how long it will take and what it will cost."
+        },
+        {
+          "speaker": "rep",
+          "text": "Most roofs this size take two to three days once materials arrive. The written estimate will show a range of $22,000 to $26,000 depending on the shingle you pick."
+        },
+        {
+          "speaker": "caller",
+          "text": "Okay. Rain is in the forecast Thursday, will that delay things?"
+        },
+        {
+          "speaker": "rep",
+          "text": "I'll email the written estimate by Wednesday and I'll check the weather window with the crew."
+        }
+      ],
+      "summary": "Rosa Delgado called about roof replacement estimate. Amounts discussed: $22,000, $26,000. Caller said: \"I'm worried about how long it will take and what it will cost.\" \"Rain is in the forecast Thursday, will that delay things?\"",
+      "action_items": [
+        "Email the written estimate by Wednesday.",
+        "Check the weather window with the crew."
+      ],
+      "review_id": "CS-C-202"
+    },
+    {
+      "id": "C-203",
+      "contact": "Sam Whitaker",
+      "role": "customer",
+      "started": "2026-11-30T14:05",
+      "duration_min": 4,
+      "subject": "gutter guard pricing and scheduling",
+      "transcript": [
+        {
+          "speaker": "caller",
+          "text": "Hi, this is Sam Whitaker. I'd like a price for gutter guards on my house, about 2,200 square feet."
+        },
+        {
+          "speaker": "rep",
+          "text": "Gutter guard install for a home that size is $1,650."
+        },
+        {
+          "speaker": "caller",
+          "text": "That works. Can I get on the schedule for next week?"
+        },
+        {
+          "speaker": "rep",
+          "text": "I'll have the office call back with open dates."
+        }
+      ],
+      "summary": "Sam Whitaker called about gutter guard pricing and scheduling. Rep quoted gutter guard install at $1,650.",
+      "action_items": [
+        "Have the office call back with open dates."
+      ],
+      "review_id": "CS-C-203"
+    },
+    {
+      "id": "C-204",
+      "contact": "Mike (Lone Star Shingle Supply)",
+      "role": "vendor",
+      "started": "2026-11-30T16:30",
+      "duration_min": 3,
+      "subject": "delivery change from Wednesday to Thursday",
+      "transcript": [
+        {
+          "speaker": "caller",
+          "text": "This is Mike at Lone Star Shingle Supply. Your Wednesday delivery is moving to Thursday morning."
+        },
+        {
+          "speaker": "rep",
+          "text": "Thursday works as long as it's before noon."
+        },
+        {
+          "speaker": "caller",
+          "text": "We'll aim for 9 AM and text the driver's ETA."
+        },
+        {
+          "speaker": "rep",
+          "text": "I'll tell the crew lead to hold Thursday morning."
+        }
+      ],
+      "summary": "Mike (Lone Star Shingle Supply) called about delivery change from Wednesday to Thursday.",
+      "action_items": [
+        "Tell the crew lead to hold Thursday morning."
+      ],
+      "review_id": "CS-C-204"
+    }
+  ],
+  "review": [
+    {
+      "id": "FU-L-106",
+      "kind": "draft",
+      "title": "Ben Okafor: active roof leak",
+      "subtitle": "To ben.okafor@example.com",
+      "subject": "Your roof leak: we can be there today",
+      "original": "Hi Ben,\n\nAn active leak needs eyes on it quickly. I can have an inspector at your home today at 1:00 PM for our roof inspection ($225). The fee is credited toward any repair we do. If water is coming in now, put a bucket under the drip and move anything valuable out of the way.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [],
+      "status": "clean",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "FU-L-101",
+      "kind": "draft",
+      "title": "Marcus Bell: storm damage inspection",
+      "subtitle": "To marcus.bell@example.com",
+      "subject": "Your roof: we can look at it today",
+      "original": "Hi Marcus,\n\nThanks for reaching out about the hail damage. We put storm calls first, and we guarantee same-day repair once we've found the cause. I can have an inspector at your home today at 2:00 PM for our roof inspection ($225). The fee is credited toward any repair we do.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [
+        {
+          "rule": "banned_wording",
+          "severity": "block",
+          "title": "Promise the business has not approved",
+          "detail": "The draft promises same-day repair. We can offer the earliest date after an inspection, not a guarantee.",
+          "evidence": "we guarantee same-day repair once we've found the cause",
+          "replacement": "we'll give you the earliest repair date as soon as we've found the cause"
+        }
+      ],
+      "status": "fix_ready",
+      "suggested": "Hi Marcus,\n\nThanks for reaching out about the hail damage. We put storm calls first, and we'll give you the earliest repair date as soon as we've found the cause. I can have an inspector at your home today at 2:00 PM for our roof inspection ($225). The fee is credited toward any repair we do.\n\nReply YES to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "suggested_is_clean": true,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "FU-L-102",
+      "kind": "draft",
+      "title": "Priya Nair: gutter guards",
+      "subtitle": "To priya.nair@example.com",
+      "subject": "Your gutter guard quote",
+      "original": "Hi Priya,\n\nThanks for your voicemail about gutter guards. For a home up to 2,500 sq ft, our gutter guard install is $1,650, and we can schedule it Wednesday, Dec 2 at 10:00 AM. Spring fills up fast, so booking now keeps your date.\n\nReply with a time that works, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [
+        {
+          "rule": "price_mismatch",
+          "severity": "block",
+          "title": "Wrong price",
+          "detail": "The draft quotes $1,650 for gutter guard install. The current price list says $1,850.",
+          "evidence": "$1,650",
+          "replacement": "$1,850"
+        }
+      ],
+      "status": "fix_ready",
+      "suggested": "Hi Priya,\n\nThanks for your voicemail about gutter guards. For a home up to 2,500 sq ft, our gutter guard install is $1,850, and we can schedule it Wednesday, Dec 2 at 10:00 AM. Spring fills up fast, so booking now keeps your date.\n\nReply with a time that works, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "suggested_is_clean": true,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "FU-L-105",
+      "kind": "draft",
+      "title": "Janelle Whitfield: roof replacement estimate",
+      "subtitle": "To janelle.whitfield@example.com",
+      "subject": "Your free roof estimate",
+      "original": "Hi Janelle,\n\nThanks for getting in touch, and for the referral. Estimates for full roof replacement are free. I can have an estimator at your home Wednesday, Dec 2 at 4:00 PM to measure the roof and walk you through shingle options.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [],
+      "status": "clean",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "FU-L-103",
+      "kind": "draft",
+      "title": "Oak Ridge Dental: commercial roof inspection",
+      "subtitle": "To office@oakridgedental.example.com",
+      "subject": "Your roof inspection pricing",
+      "original": "Hi {first_name},\n\nThanks for your request about the roof at your office building. Our commercial flat-roof inspection is $480. I can have an inspector there Thursday, Dec 3 at 9:00 AM to look at the roof and write up what we find.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [
+        {
+          "rule": "placeholder",
+          "severity": "block",
+          "title": "Template field left in the message",
+          "detail": "The text {first_name} would reach the customer exactly as written.",
+          "evidence": "Hi {first_name},",
+          "replacement": "Hello Oak Ridge Dental team,"
+        }
+      ],
+      "status": "fix_ready",
+      "suggested": "Hello Oak Ridge Dental team,\n\nThanks for your request about the roof at your office building. Our commercial flat-roof inspection is $480. I can have an inspector there Thursday, Dec 3 at 9:00 AM to look at the roof and write up what we find.\n\nReply to confirm, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "suggested_is_clean": true,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "FU-L-104",
+      "kind": "draft",
+      "title": "Tomás Rivera: gutter cleaning",
+      "subtitle": "To tomas.rivera@example.com",
+      "subject": "Your gutter cleaning",
+      "original": "Hi Tomás,\n\nThanks for asking about gutter cleaning. It's $149, and we can do it Sunday, Dec 6 at 10:00 AM.\n\nReply YES to book it, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "findings": [
+        {
+          "rule": "closed_day",
+          "severity": "block",
+          "title": "Visit offered when the business is closed",
+          "detail": "Hartwell is closed on Sundays.",
+          "evidence": "Sunday, Dec 6 at 10:00 AM",
+          "replacement": "Saturday, Dec 5 at 10:00 AM",
+          "new_slot": "2026-12-05T10:00"
+        }
+      ],
+      "status": "fix_ready",
+      "suggested": "Hi Tomás,\n\nThanks for asking about gutter cleaning. It's $149, and we can do it Saturday, Dec 5 at 10:00 AM.\n\nReply YES to book it, or call us at (214) 555-0142.\n\nThe Hartwell Roofing & Gutters team",
+      "suggested_is_clean": true,
+      "checks": [
+        "Prices match the price list",
+        "No template fields left in the text",
+        "Visit falls inside business hours",
+        "No promises the business has not approved",
+        "Greeting and address match the lead",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "CS-C-201",
+      "kind": "call_summary",
+      "title": "Greg Hollis: Thursday gutter cleaning confirmation",
+      "subtitle": "Call C-201, 6 min",
+      "subject": null,
+      "original": "Greg Hollis called about Thursday gutter cleaning confirmation. Rep quoted gutter cleaning at $149.",
+      "findings": [],
+      "status": "clean",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Every amount was said on the call",
+        "Quoted prices match the price list",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "CS-C-202",
+      "kind": "call_summary",
+      "title": "Rosa Delgado: roof replacement estimate",
+      "subtitle": "Call C-202, 12 min",
+      "subject": null,
+      "original": "Rosa Delgado called about roof replacement estimate. Amounts discussed: $22,000, $26,000. Caller said: \"I'm worried about how long it will take and what it will cost.\" \"Rain is in the forecast Thursday, will that delay things?\"",
+      "findings": [],
+      "status": "clean",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Every amount was said on the call",
+        "Quoted prices match the price list",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "CS-C-203",
+      "kind": "call_summary",
+      "title": "Sam Whitaker: gutter guard pricing and scheduling",
+      "subtitle": "Call C-203, 4 min",
+      "subject": null,
+      "original": "Sam Whitaker called about gutter guard pricing and scheduling. Rep quoted gutter guard install at $1,650.",
+      "findings": [
+        {
+          "rule": "outdated_quote",
+          "severity": "warn",
+          "title": "Customer was quoted an old price",
+          "detail": "The rep quoted gutter guard install at $1,650 on the call. The price list now says $1,850. The summary is accurate, but the customer expects the lower number.",
+          "evidence": "$1,650",
+          "replacement": null,
+          "contact": "Sam Whitaker",
+          "quoted": 1650,
+          "current": 1850,
+          "service_short": "gutter guard install",
+          "options": [
+            "Honor $1,650 for this customer",
+            "Call to explain the new $1,850 price"
+          ]
+        }
+      ],
+      "status": "needs_decision",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Every amount was said on the call",
+        "Quoted prices match the price list",
+        "No credentials in the text"
+      ]
+    },
+    {
+      "id": "CS-C-204",
+      "kind": "call_summary",
+      "title": "Mike (Lone Star Shingle Supply): delivery change from Wednesday to Thursday",
+      "subtitle": "Call C-204, 3 min",
+      "subject": null,
+      "original": "Mike (Lone Star Shingle Supply) called about delivery change from Wednesday to Thursday.",
+      "findings": [],
+      "status": "clean",
+      "suggested": null,
+      "suggested_is_clean": false,
+      "checks": [
+        "Every amount was said on the call",
+        "Quoted prices match the price list",
+        "No credentials in the text"
+      ]
+    }
+  ],
+  "lessons": [
+    {
+      "rule": "banned_wording",
+      "lesson": "Do not promise outcomes or timelines the business has not approved. Offer the earliest date after an inspection instead.",
+      "items": [
+        "FU-L-101"
+      ]
+    },
+    {
+      "rule": "price_mismatch",
+      "lesson": "Read prices from data/business.json every time you write one. Never reuse a remembered or cached price.",
+      "items": [
+        "FU-L-102"
+      ]
+    },
+    {
+      "rule": "placeholder",
+      "lesson": "If a lead has no personal name, greet the company or use a neutral hello. Never send a draft with a template field left in it.",
+      "items": [
+        "FU-L-103"
+      ]
+    },
+    {
+      "rule": "closed_day",
+      "lesson": "Check every proposed visit against business hours before writing it. If a customer says 'weekend', offer Saturday morning.",
+      "items": [
+        "FU-L-104"
+      ]
+    },
+    {
+      "rule": "outdated_quote",
+      "lesson": "When a call summary shows a price that differs from the price list, flag it for the owner. Do not repeat it in a follow-up.",
+      "items": [
+        "CS-C-203"
+      ]
+    }
+  ],
+  "owner_update": {
+    "done": [
+      "Sorted 9 overnight inquiries: 2 urgent, 4 quote requests, 2 not ready or not a fit, 1 spam.",
+      "Summarized yesterday's 4 calls.",
+      "Drafted 6 follow-ups and checked every one before anything went out. 2 were clean. 4 had a problem I caught: a promise we do not make, a wrong price, an unfilled name field and a visit offered on a day we are closed. Fixes are ready."
+    ],
+    "next": [
+      "Call the urgent leads first: Ben Okafor (active roof leak) and Marcus Bell (storm damage inspection).",
+      "Approve the 2 clean follow-ups and look over the 4 fixes.",
+      "Keep the 5 promises made on yesterday's calls. Each one is listed with its call."
+    ],
+    "needs_you": [
+      "Sam Whitaker was quoted $1,650 for gutter guard install on Monday's call. The price list now says $1,850. Do we honor $1,650 for them, or do we call to explain the new price?"
+    ],
+    "blocked": "Nothing is blocked. Nothing has been sent.",
+    "text": "Good morning, Dana.\n\nDone\n- Sorted 9 overnight inquiries: 2 urgent, 4 quote requests, 2 not ready or not a fit, 1 spam.\n- Summarized yesterday's 4 calls.\n- Drafted 6 follow-ups and checked every one before anything went out. 2 were clean. 4 had a problem I caught: a promise we do not make, a wrong price, an unfilled name field and a visit offered on a day we are closed. Fixes are ready.\n\nNext\n- Call the urgent leads first: Ben Okafor (active roof leak) and Marcus Bell (storm damage inspection).\n- Approve the 2 clean follow-ups and look over the 4 fixes.\n- From Greg Hollis's call: add the side gate note to the job.\n- From Rosa Delgado's call: email the written estimate by Wednesday.\n- From Rosa Delgado's call: check the weather window with the crew.\n- From Sam Whitaker's call: have the office call back with open dates.\n- From Mike (Lone Star Shingle Supply)'s call: tell the crew lead to hold Thursday morning.\n\nNeeds your call\n- Sam Whitaker was quoted $1,650 for gutter guard install on Monday's call. The price list now says $1,850. Do we honor $1,650 for them, or do we call to explain the new price?\n\nNothing is blocked. Nothing has been sent."
+  },
+  "stats": {
+    "leads": 9,
+    "calls": 4,
+    "drafts": 6,
+    "outputs_reviewed": 10,
+    "flagged": 5,
+    "clean": 5
+  }
+}

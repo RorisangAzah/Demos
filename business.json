@@ -1,0 +1,48 @@
+{
+  "name": "Hartwell Roofing & Gutters",
+  "owner": "Dana Hartwell",
+  "owner_first": "Dana",
+  "city": "Dallas, TX",
+  "phone": "(214) 555-0142",
+  "timezone": "America/Chicago",
+  "appointment_minutes": 60,
+  "hours": {
+    "mon": ["08:00", "17:00"],
+    "tue": ["08:00", "17:00"],
+    "wed": ["08:00", "17:00"],
+    "thu": ["08:00", "17:00"],
+    "fri": ["08:00", "17:00"],
+    "sat": ["09:00", "13:00"],
+    "sun": null
+  },
+  "prices": {
+    "roof_inspection": {
+      "label": "Residential roof inspection",
+      "short": "roof inspection",
+      "amount": 225
+    },
+    "commercial_inspection": {
+      "label": "Commercial flat-roof inspection (up to 10,000 sq ft)",
+      "short": "commercial flat-roof inspection",
+      "amount": 480
+    },
+    "gutter_cleaning": {
+      "label": "Gutter cleaning",
+      "short": "gutter cleaning",
+      "amount": 149
+    },
+    "gutter_guards": {
+      "label": "Gutter guard install (homes up to 2,500 sq ft)",
+      "short": "gutter guard install",
+      "amount": 1850
+    }
+  },
+  "policies": [
+    "Estimates for full roof replacement are free.",
+    "The inspection fee is credited toward any repair we do."
+  ],
+  "banned_phrases": ["guarantee", "lowest price", "100%"],
+  "safe_rewrites": {
+    "we guarantee same-day repair once we've found the cause": "we'll give you the earliest repair date as soon as we've found the cause"
+  }
+}
